@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Main Page</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <script>
+        function loadVideo(videoNumber) {
+            var videoContainer = document.getElementById("video-container");
+            videoContainer.innerHTML = '';
+
+            var videos = [
+                {
+                    src: "Double Integral & Area By Double Integration _ Multiple Integral.mp4",
+                    title: "Video 1: Double Integral & Area By Double Integration"
+                },
+                {
+                    src: "Introduction to Three-Dimensional (3D) Arrays.mp4",
+                    title: "Video 2: Introduction to Three-Dimensional (3D) Arrays"
+                }
+            ];
+
+            for (var i = 0; i < videos.length; i++) {
+                var video = videos[i];
+
+                var videoElement = document.createElement("video");
+                videoElement.setAttribute("controls", "");
+                videoElement.setAttribute("muted", "");
+                videoElement.setAttribute("loop", "");
+                videoElement.setAttribute("width", "500");
+                videoElement.setAttribute("height", "250");
+                videoElement.innerHTML = "<source src='" + video.src + "' type='video/mp4'>";
+                videoElement.style.display = i === videoNumber ? "block" : "none";
+
+                var titleElement = document.createElement("h3");
+                titleElement.textContent = video.title;
+                titleElement.addEventListener("click", function(index) {
+                    return function() {
+                        var allVideos = document.getElementsByTagName("video");
+                        for (var j = 0; j < allVideos.length; j++) {
+                            allVideos[j].style.display = "none";
+                        }
+                        videoContainer.getElementsByTagName("video")[index].style.display = "block";
+                    };
+                }(i));
+
+                videoContainer.appendChild(titleElement);
+                videoContainer.appendChild(videoElement);
+            }
+        }
+
+        function toggleLoginForm() {
+            var loginForm = document.getElementById("loginForm");
+            if (loginForm.style.display === "block") {
+                loginForm.style.display = "none";
+            } else {
+                loginForm.style.display = "block";
+            }
+        }
+
+        function login() {
+            var uniqueId = document.getElementById("uniqueId").value;
+            // Mock authentication, replace with your server-side logic
+            if (!isNaN(uniqueId)) {
+                // Redirect to main page after successful login
+                window.location.href = "Home.html"; // Redirect to the Home page
+                alert("Invalid unique ID. Please enter a valid ID.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>LinguaConnect</h1>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="loadVideo()">Home</a></li>
+                <li><a href="#" onclick="toggleLoginForm()">Login</a></li>
+                <li><a href="student_register.html">Student Registration</a></li>
+                <li><a href="tutor_register.html">Tutor Registration</a></li>
+                <li><a href="help.html">Help</a></li>
+            </ul>
+        </nav>
+    </header>
+   
+    <div class="image-gallery">
+        <img src="Screenshot 2024-03-09 111706.png" alt="Background Image">
+    </div>
+
+    <section id="video-container">
+        <!-- Video content will be loaded dynamically here -->
+    </section>
+
+   
+
+    <section id="loginForm" style="display: none;">
+        <h2>Login</h2>
+        <form>
+            <label for="uniqueId">Unique ID:</label><br>
+            <input type="text" id="uniqueId" name="uniqueId" required><br><br>
+            <button type="button" onclick="login()">Login</button>
+        </form>
+    </section>
+</body>
+</html>
