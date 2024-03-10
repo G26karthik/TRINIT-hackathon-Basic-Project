@@ -44,12 +44,12 @@ footer {
 /* Login Form Styles */
 #loginForm {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 75%;
+    left: 75%;
+    transform: translate(-75%, -75%);
     background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
-    padding: 20px;
-    border-radius: 5px;
+    padding: 45px;
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: none;
 }
@@ -60,7 +60,7 @@ footer {
 
 #loginForm form label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 }
 
 #loginForm form input[type="text"], 
