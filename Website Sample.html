@@ -1,8 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Firebase initialization script -->
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js"></script>
+    <script type="module">
+        // Your web app's Firebase configuration
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA1PUit3EXHru1cpZT1XsLCTkkfWI0oCAI",
+  authDomain: "login-to-lingua-connect.firebaseapp.com",
+  projectId: "login-to-lingua-connect",
+  storageBucket: "login-to-lingua-connect.appspot.com",
+  messagingSenderId: "603589362399",
+  appId: "1:603589362399:web:c5a0e3e527d52719195f6a"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+    </script>
+    <!-- End of Firebase initialization script -->
+
+    <script type="module">
+        // Your existing JavaScript code, including the login function
+        function login() {
+            var emailPhone = document.getElementById("emailPhone").value;
+            var password = document.getElementById("password").value;
+
+            // Authenticate using email/phone and password
+            firebase.auth().signInWithEmailAndPassword(emailPhone, password)
+            .then((userCredential) => {
+                // Redirect to main page after successful login
+                window.location.href = "Home.html";
+            })
+            .catch((error) => {
+                var errorMessage = error.message;
+                alert(errorMessage);
+            });
+        }
+
+        // Function to display user's name in the right topmost corner
+        function displayUserName() {
+            var user = firebase.auth().currentUser;
+            if (user) {
+                var userName = user.displayName;
+                document.getElementById("userName").innerHTML = userName;
+            }
+        }
+    </script>
+</head>
+<body onload="displayUserName()">
+    <header>
+        <h1>LinguaConnect</h1>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="loadVideo()">Home</a></li>
+                <li><a href="#" onclick="toggleLoginForm()">Login</a></li>
+                <li><a href="student_register.html">Student Registration</a></li>
+                <li><a href="tutor_register.html">Tutor Registration</a></li>
+                <li><a href="help.html">Help</a></li>
+            </ul>
+        </nav>
+        <div id="userProfile">
+            Welcome, <span id="userName"></span>
+        </div>
+    </header>
+   
+ 
+
+    <section id="video-container">
+        <!-- Video content will be loaded dynamically here -->
+    </section>
+
+    <section id="loginForm" style="display: none;">
+        <h2>Login</h2>
+        <form>
+            <label for="emailPhone">Email/Phone:</label><br>
+            <input type="text" id="emailPhone" name="emailPhone" required><br><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required><br><br>
+            <button type="button" onclick="login()">Login</button>
+        </form>
+    </section>
 
     <script>
         function loadVideo(videoNumber) {
@@ -57,49 +142,6 @@
                 loginForm.style.display = "block";
             }
         }
-
-        function login() {
-            var uniqueId = document.getElementById("uniqueId").value;
-            // Mock authentication, replace with your server-side logic
-            if (!isNaN(uniqueId)) {
-                // Redirect to main page after successful login
-                window.location.href = "Home.html"; // Redirect to the Home page
-                alert("Invalid unique ID. Please enter a valid ID.");
-            }
-        }
     </script>
-</head>
-<body>
-    <header>
-        <h1>LinguaConnect</h1>
-        <nav>
-            <ul>
-                <li><a href="#" onclick="loadVideo()">Home</a></li>
-                <li><a href="#" onclick="toggleLoginForm()">Login</a></li>
-                <li><a href="student_register.html">Student Registration</a></li>
-                <li><a href="tutor_register.html">Tutor Registration</a></li>
-                <li><a href="help.html">Help</a></li>
-            </ul>
-        </nav>
-    </header>
-   
-    <div class="image-gallery">
-        <img src="Screenshot 2024-03-09 111706.png" alt="Background Image">
-    </div>
-
-    <section id="video-container">
-        <!-- Video content will be loaded dynamically here -->
-    </section>
-
-   
-
-    <section id="loginForm" style="display: none;">
-        <h2>Login</h2>
-        <form>
-            <label for="uniqueId">Unique ID:</label><br>
-            <input type="text" id="uniqueId" name="uniqueId" required><br><br>
-            <button type="button" onclick="login()">Login</button>
-        </form>
-    </section>
 </body>
 </html>
